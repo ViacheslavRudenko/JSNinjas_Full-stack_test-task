@@ -1,4 +1,4 @@
-const data = [
+export const data = [
   {
     nickname: "Superman",
     real_name: "Clark Kent",
@@ -12,5 +12,3 @@ const data = [
     images: "https://upload.wikimedia.org/wikipedia/en/3/35/Supermanflying.png",
   },
 ];
-
-module.exports = data;
