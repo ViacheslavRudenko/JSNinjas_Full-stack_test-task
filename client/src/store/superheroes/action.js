@@ -1,4 +1,3 @@
-import { getSuperheroes } from "../../api/superheroes";
 import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_ERROR } from "./types";
 
 const setRequest = (request) => {
@@ -21,9 +20,9 @@ const setError = (error) => {
 //   return { type: editDataValue, payload: data };
 // };
 
-const fetchSuperheroes = () => {
+const fetchSuperheroes = (getData) => {
   return async (dispatch) => {
-    await getSuperheroes()
+    await getData
       .then((response) => {
         dispatch(setRequest(true));
         dispatch(setData(response.data));

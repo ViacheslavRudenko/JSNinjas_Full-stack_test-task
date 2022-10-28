@@ -17,7 +17,7 @@ export const getSuperheroes = (req, res) => {
 export const getSuperhero = (req, res) => {
   Superheroes.findById(req.params.id)
     .then((data) => {
-      res.send(data);
+      res.send([data]);
     })
     .catch((error) => {
       console.log(error);

@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import Header from "./Components/Header/Header";
-import SuperheroesList from "./views/List";
+import Routing from "./Components/Routing/Routing";
 
 function App() {
   return (
     <Box>
       <Header />
-      <SuperheroesList />
+      <Routing />
     </Box>
   );
 }
