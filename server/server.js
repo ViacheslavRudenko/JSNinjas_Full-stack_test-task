@@ -2,12 +2,14 @@ import express from "express";
 import { Superheroes } from "./models/superhero.js";
 import { superheroValidation } from "./validations/superhero.js";
 import { validationResult } from "express-validator";
+import methodOverride from "method-override";
 import "./db.js";
 
 const PORT = 3000;
 
 const app = express();
 app.use(express.json());
+app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
   res.send(
@@ -17,6 +19,7 @@ app.get("/", (req, res) => {
       </ul>`
   );
 });
+
 //Get all list
 app.get("/superheroes", (req, res) => {
   Superheroes.find()
@@ -30,6 +33,7 @@ app.get("/superheroes", (req, res) => {
         .json({ success: false, message: "Database connection error" });
     });
 });
+
 //Get one superhero by id
 app.get("/superheroes/:id", (req, res) => {
   Superheroes.findById(req.params.id)
@@ -43,6 +47,7 @@ app.get("/superheroes/:id", (req, res) => {
         .json({ success: false, message: "Database connection error" });
     });
 });
+
 //Post new superhero
 app.post("/add-superhero", superheroValidation, (req, res) => {
   const post = new Superheroes({
@@ -59,7 +64,9 @@ app.post("/add-superhero", superheroValidation, (req, res) => {
       console.log(error);
       err
         ? res.status(400).json(err.array())
-        : res.status(500).json({ message: "Database connection error" });
+        : res
+            .status(500)
+            .json({ success: false, message: "Database connection error" });
     });
 });
 
@@ -71,16 +78,17 @@ app.delete("/superheroes/:id", (req, res) => {
     })
     .catch((error) => {
       console.log(error);
-      res.render(createPath("error"), { title: "Error" });
+      res
+        .status(500)
+        .json({ success: false, message: "Database connection error" });
     });
 });
 
 //Update superhero data
-app.put("/superheroes/:id", (req, res) => {
+app.put("/superheroes/:id", superheroValidation, (req, res) => {
   const err = validationResult(req);
-  Superheroes.findByIdAndUpdate(req.params.id, {
-    ...req.body,
-  })
+
+  Superheroes.findByIdAndUpdate(req.params.id, req.body)
     .then((result) => {
       res.redirect(`/superheroes/${req.params.id}`);
     })
@@ -88,7 +96,9 @@ app.put("/superheroes/:id", (req, res) => {
       console.log(error);
       err
         ? res.status(400).json(err.array())
-        : res.status(500).json({ message: "Database connection error" });
+        : res
+            .status(500)
+            .json({ success: false, message: "Database connection error" });
     });
 });
 
