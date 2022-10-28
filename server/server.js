@@ -1,49 +1,97 @@
 import express from "express";
-import { superhero } from "./models/superhero.js";
+import { Superheroes } from "./models/superhero.js";
 import { superheroValidation } from "./validations/superhero.js";
 import { validationResult } from "express-validator";
-import mongoose from "mongoose";
-
-const db =
-  "mongodb+srv://user:wDAM3gi33hGWsrG7@cluster0.8nfslkf.mongodb.net/JSNinjas_Full-stack_test-task?retryWrites=true&w=majority";
-
-mongoose
-  .connect(db, { useNewUrlParser: true })
-  .then((res) => {
-    console.log("Connected to BD");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+import "./db.js";
 
 const PORT = 3000;
 
 const app = express();
 app.use(express.json());
 
-app.listen(PORT, "localhost", (err) => {
-  err ? console.log(err) : console.log(`listening port ${PORT}`);
+app.get("/", (req, res) => {
+  res.send(
+    ` <h1 style='text-align:center'>Welcome to our superheroes database</h1>
+      <ul>
+        <li><a href='superheroes'>Superheroes list</a></li>
+      </ul>`
+  );
+});
+//Get all list
+app.get("/superheroes", (req, res) => {
+  Superheroes.find()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res
+        .status(500)
+        .json({ success: false, message: "Database connection error" });
+    });
+});
+//Get one superhero by id
+app.get("/superheroes/:id", (req, res) => {
+  Superheroes.findById(req.params.id)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res
+        .status(500)
+        .json({ success: false, message: "Database connection error" });
+    });
+});
+//Post new superhero
+app.post("/add-superhero", superheroValidation, (req, res) => {
+  const post = new Superheroes({
+    ...req.body,
+  });
+  const err = validationResult(req);
+
+  post
+    .save()
+    .then((result) => {
+      res.redirect("/superheroes");
+    })
+    .catch((error) => {
+      console.log(error);
+      err
+        ? res.status(400).json(err.array())
+        : res.status(500).json({ message: "Database connection error" });
+    });
 });
 
-// app.get("/", (req, res) => {
-//   res.send("<h1>Hello</h1>");
-// });
+//Delete superhiro from db
+app.delete("/superheroes/:id", (req, res) => {
+  Superheroes.findByIdAndDelete(req.params.id)
+    .then((result) => {
+      res.status(200).json({ success: true });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.render(createPath("error"), { title: "Error" });
+    });
+});
 
-app.post("/superheroes", superheroValidation, async (req, res) => {
+//Update superhero data
+app.put("/superheroes/:id", (req, res) => {
   const err = validationResult(req);
-  if (!err.isEmpty()) {
-    return res.status(400).json(err.array());
-  }
+  Superheroes.findByIdAndUpdate(req.params.id, {
+    ...req.body,
+  })
+    .then((result) => {
+      res.redirect(`/superheroes/${req.params.id}`);
+    })
+    .catch((error) => {
+      console.log(error);
+      err
+        ? res.status(400).json(err.array())
+        : res.status(500).json({ message: "Database connection error" });
+    });
+});
 
-  const doc = new superhero({
-    nickname: req.body.nickname,
-    real_name: req.body.real_name,
-    origin_description: req.body.origin_description,
-    superpowers: req.body.superpowers,
-    catch_phrase: req.body.catch_phrase,
-    images: req.body.images,
-  });
-
-  const superheroData = await doc.save();
-  res.json(superheroData);
+app.listen(PORT, "localhost", (err) => {
+  err ? console.log(err) : console.log(`listening port ${PORT}`);
 });
