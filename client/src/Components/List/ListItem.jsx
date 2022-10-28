@@ -1,7 +1,11 @@
 import { Box, Button, Typography } from "@mui/material";
 import { Close, Create } from "@mui/icons-material";
+import { delleteSuperhero } from "../../api/superheroes";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteItem } from "../../store/superheroes/action";
 
 const SuperheroItem = ({ superhero, isCard = false }) => {
+  const dispatch = useDispatch();
   const textStyle = {
     p: 0.5,
     border: "none",
@@ -16,7 +20,8 @@ const SuperheroItem = ({ superhero, isCard = false }) => {
       <Button
         onClick={(e) => {
           e.preventDefault();
-          console.log("closed");
+          delleteSuperhero(superhero._id);
+          dispatch(deleteItem(superhero._id));
         }}
       >
         <Close />

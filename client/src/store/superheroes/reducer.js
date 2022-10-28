@@ -1,4 +1,10 @@
-import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_ERROR } from "./types";
+import store from "../store";
+import {
+  GET_DATA_REQUEST,
+  GET_DATA_SUCCESS,
+  GET_DATA_ERROR,
+  DELETE_DATA,
+} from "./types";
 
 let initialState = {
   isLoaded: false,
@@ -16,6 +22,12 @@ const reducerSuperheroes = (state = initialState, action) => {
     }
     case GET_DATA_ERROR: {
       return { ...state, error: action.payload };
+    }
+    case DELETE_DATA: {
+      return {
+        ...state,
+        data: state.data.filter((data) => data._id !== action.payload),
+      };
     }
 
     default:

@@ -1,4 +1,9 @@
-import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_ERROR } from "./types";
+import {
+  GET_DATA_REQUEST,
+  GET_DATA_SUCCESS,
+  GET_DATA_ERROR,
+  DELETE_DATA,
+} from "./types";
 
 const setRequest = (request) => {
   return { type: GET_DATA_REQUEST, payload: request };
@@ -10,9 +15,9 @@ const setError = (error) => {
   return { type: GET_DATA_ERROR, payload: error };
 };
 
-// const deleteItem = (data) => {
-//   return { type: deleteData, payload: data };
-// };
+const deleteItem = (id) => {
+  return { type: DELETE_DATA, payload: id };
+};
 // const getNewData = (data) => {
 //   return { type: getNewDataItem, payload: data };
 // };
@@ -31,4 +36,4 @@ const fetchSuperheroes = (getData) => {
   };
 };
 
-export { fetchSuperheroes };
+export { fetchSuperheroes, deleteItem };
