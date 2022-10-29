@@ -4,7 +4,10 @@ import { validationResult } from "express-validator";
 export const getSuperheroes = (req, res) => {
   Superheroes.find()
     .then((data) => {
-      res.send(data);
+      const dataArr = data.map((data) => {
+        return { _id: data._id, nickname: data.nickname, images: data.images };
+      });
+      res.send(dataArr);
     })
     .catch((error) => {
       console.log(error);

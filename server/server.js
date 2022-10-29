@@ -19,6 +19,7 @@ const app = express();
 app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(cors());
+
 app.get("/", mainPage);
 app.get("/superheroes", getSuperheroes);
 app.get("/superheroes/:id", getSuperhero);
