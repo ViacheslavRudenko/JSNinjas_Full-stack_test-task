@@ -30,7 +30,7 @@ const SuperheroesList = () => {
   };
 
   const GridList = () => (
-    <Stack container component="ul">
+    <Stack component="ul">
       {data.map((superhero) => (
         <Stack key={superhero._id} component="ol">
           <SuperheroItem superhero={superhero} />

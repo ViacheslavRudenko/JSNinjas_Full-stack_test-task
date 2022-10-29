@@ -1,9 +1,9 @@
-import store from "../store";
 import {
   GET_DATA_REQUEST,
   GET_DATA_SUCCESS,
   GET_DATA_ERROR,
   DELETE_DATA,
+  GET_NEW_DATA,
 } from "./types";
 
 let initialState = {
@@ -27,6 +27,12 @@ const reducerSuperheroes = (state = initialState, action) => {
       return {
         ...state,
         data: state.data.filter((data) => data._id !== action.payload),
+      };
+    }
+    case GET_NEW_DATA: {
+      return {
+        ...state,
+        data: [...state.data, action.payload],
       };
     }
 

@@ -1,8 +1,10 @@
+import { addNewSuperhero } from "../../api/superheroes";
 import {
   GET_DATA_REQUEST,
   GET_DATA_SUCCESS,
   GET_DATA_ERROR,
   DELETE_DATA,
+  GET_NEW_DATA,
 } from "./types";
 
 const setRequest = (request) => {
@@ -18,9 +20,10 @@ const setError = (error) => {
 const deleteItem = (id) => {
   return { type: DELETE_DATA, payload: id };
 };
-// const getNewData = (data) => {
-//   return { type: getNewDataItem, payload: data };
-// };
+const getNewData = (data) => {
+  addNewSuperhero(data);
+  return { type: GET_NEW_DATA, payload: data };
+};
 // const editData = (data) => {
 //   return { type: editDataValue, payload: data };
 // };
@@ -36,4 +39,4 @@ const fetchSuperheroes = (getData) => {
   };
 };
 
-export { fetchSuperheroes, deleteItem };
+export { fetchSuperheroes, deleteItem, getNewData };

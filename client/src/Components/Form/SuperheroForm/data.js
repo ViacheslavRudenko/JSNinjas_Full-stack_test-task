@@ -22,5 +22,5 @@ export const superheroSchema = yup.object({
     .required("Full descriptions is required."),
   superpowers: yup.string().min(15).required("Superpowers is required."),
   catch_phrase: yup.string().min(15).required("Catch phrase is required."),
-  images: yup.string().url().required("Url image is required."),
+  images: yup.string().url(),
 });

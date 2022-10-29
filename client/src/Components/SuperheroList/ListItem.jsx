@@ -22,6 +22,7 @@ const SuperheroItem = ({ superhero, isCard = false }) => {
       pl: 1,
     },
   };
+  const linkStyle = { textDecoration: "none", color: "black" };
 
   const swetDeleteItem = (e) => {
     e.preventDefault();
@@ -38,58 +39,70 @@ const SuperheroItem = ({ superhero, isCard = false }) => {
   };
 
   const BoxActionWithCard = () => (
-    <Grid item xs>
-      {!isCard && (
+    <Grid item xs={1}>
+      {!isCard ? (
         <Button onClick={swetDeleteItem}>
           <Close />
         </Button>
+      ) : (
+        <Button onClick={setEditItem}>
+          <Create />
+        </Button>
       )}
-      <Button onClick={setEditItem}>
-        <Create />
-      </Button>
     </Grid>
   );
 
   const BoxImg = () => (
     <Grid item xs={3}>
-      <Link to={`/superhero/${superhero._id}`}>
-        <Box
-          component="img"
-          maxWidth={160}
-          alt={`${superhero.nickname} photo`}
-          src={superhero.images}
-          display="block"
-          m="0 auto"
-        ></Box>
+      <Link to={`/superhero/${superhero._id}`} style={linkStyle}>
+        {superhero.images ? (
+          <Box
+            component="img"
+            maxWidth={160}
+            alt={`${superhero.nickname} photo`}
+            src={superhero.images}
+            display="block"
+            m="0 auto"
+          ></Box>
+        ) : (
+          <Stack align="center" height="100%" justifyContent="center">
+            no image
+          </Stack>
+        )}
       </Link>
     </Grid>
   );
 
   const CardContent = () => (
-    <Grid item xs={8}>
-      <Link
-        to={`/superhero/${superhero._id}`}
-        style={{ textDecoration: "none", color: "black" }}
-      >
+    <Grid item xs>
+      <Link to={`/superhero/${superhero._id}`} style={linkStyle}>
         <Box component="h6" fontSize={18} textAlign="center" m={1}>
           {superhero.nickname}
         </Box>
-        <Typography sx={textStyle}>
-          <Typography component="span">Real name: </Typography>
-          {superhero.real_name}
-        </Typography>
-        <Typography sx={textStyle}>
-          <Typography component="span">Super powers: </Typography>
-          {superhero.superpowers}
-        </Typography>
-        <Typography sx={textStyle}>
-          <Typography component="span">Catch phrase: </Typography>
-          {superhero.catch_phrase}
-        </Typography>
-        <Typography sx={textStyle}>
-          <Typography component="span">Description: </Typography>
-          {superhero.origin_description}
-        </Typography>
+        {isCard ? (
+          <Box>
+            <Typography sx={textStyle}>
+              <Typography component="span">Real name: </Typography>
+              {superhero.real_name}
+            </Typography>
+            <Typography sx={textStyle}>
+              <Typography component="span">Super powers: </Typography>
+              {superhero.superpowers}
+            </Typography>
+            <Typography sx={textStyle}>
+              <Typography component="span">Catch phrase: </Typography>
+              {superhero.catch_phrase}
+            </Typography>
+            <Typography sx={textStyle}>
+              <Typography component="span">Description: </Typography>
+              {superhero.origin_description}
+            </Typography>
+          </Box>
+        ) : (
+          <Stack pt={10}>
+            <Button>Show more info</Button>
+          </Stack>
+        )}
       </Link>
     </Grid>
   );
