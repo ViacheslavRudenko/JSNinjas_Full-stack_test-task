@@ -20,7 +20,6 @@ const Form = ({
               inputName={inputName}
               control={control}
               label={label}
-              formType={formType}
             />
             <CustomErrorMessage
               err={errors[inputName]?.message || errors[inputName]}

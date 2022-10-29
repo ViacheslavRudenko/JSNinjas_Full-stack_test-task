@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SuperheroItem from "../Components/SuperheroList/ListItem";
 import { fetchSuperheroes } from "../store/superheroes/action";
-import { getSuperheroes } from "../api/superheroes";
+import { addNewSuperhero, getSuperheroes } from "../api/superheroes";
 import Error from "../Components/Error/Error";
 import BasicModal from "../Components/Modal/Modal";
 import SuperheroForm from "../Components/Form/SuperheroForm/SuperheroForm";
@@ -23,7 +23,9 @@ const SuperheroesList = () => {
     setModalData({
       title: "Add new superhiro",
       isOpen: true,
-      content: <SuperheroForm />,
+      content: (
+        <SuperheroForm onSubmit={addNewSuperhero} setModalData={setModalData} />
+      ),
     });
   };
 

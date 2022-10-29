@@ -12,6 +12,7 @@ const CastomInput = ({ inputName, control, label }) => {
           onChange={onChange}
           value={value}
           label={label}
+          multiline
         />
       )}
     />

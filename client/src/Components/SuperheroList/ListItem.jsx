@@ -33,7 +33,7 @@ const SuperheroItem = ({ superhero, isCard = false }) => {
     setModalData({
       title: "Edit superhiro card",
       isOpen: true,
-      content: <SuperheroForm />,
+      content: <SuperheroForm initialValue={superhero} />,
     });
   };
 

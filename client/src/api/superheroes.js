@@ -14,3 +14,8 @@ export const delleteSuperhero = async (id) => {
   const data = await instance.delete(`/superheroes/${id}`);
   return data;
 };
+
+export const addNewSuperhero = async (superhero) => {
+  const data = await instance.post(`/add-superhero`, superhero);
+  return data;
+};
