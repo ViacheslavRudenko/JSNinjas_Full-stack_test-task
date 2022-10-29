@@ -13,17 +13,14 @@ export const SuperheroInputNames = [
   { inputName: "images", formType: "text", label: "Url image" },
 ];
 
-// export const productSchema = yup.object({
-//   brand: yup.string().required("Brand is required."),
-//   categories: yup.string().required("Categories is required."),
-//   mechanism: yup.string().required("Mechanism is required."),
-//   color: yup.string().required("Color is required."),
-//   material: yup.string().required("Material is required."),
-//   enabled: yup.string().required("Enabled is required."),
-//   imageUrls: yup.array().of(yup.string().url()).required("Image is required."),
-//   quantity: yup.number().required("Quantity is required."),
-//   name: yup.string().min(20, "Name is full description of product, min 20."),
-//   currentPrice: yup.number().required("CurrentPrice is required."),
-//   isNewProduct: yup.bool().required("isNewProduct is required"),
-//   isPopularProduct: yup.bool().required("isPopularProduct is required"),
-// });
+export const superheroSchema = yup.object({
+  nickname: yup.string().min(3).max(15).required("Nickname is required."),
+  real_name: yup.string().min(3).max(15).required("Real name is required."),
+  origin_description: yup
+    .string()
+    .min(10)
+    .required("Full descriptions is required."),
+  superpowers: yup.string().min(15).required("Superpowers is required."),
+  catch_phrase: yup.string().min(15).required("Catch phrase is required."),
+  images: yup.string().url().required("Url image is required."),
+});

@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import Form from "../Form";
-import { SuperheroInputNames } from "./data";
+import { SuperheroInputNames, superheroSchema } from "./data";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const SuperheroForm = ({ initialValue, onSubmit }) => {
   const {
@@ -8,7 +9,7 @@ const SuperheroForm = ({ initialValue, onSubmit }) => {
     formState: { errors },
     control,
   } = useForm({
-    //resolver: yupResolver(productSchema),
+    resolver: yupResolver(superheroSchema),
     //defaultValues: productFormDefaultValues,
   });
 
