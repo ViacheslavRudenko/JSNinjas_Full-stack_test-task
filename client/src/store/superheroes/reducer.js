@@ -4,6 +4,7 @@ import {
   GET_DATA_ERROR,
   DELETE_DATA,
   GET_NEW_DATA,
+  EDIT_DATA,
 } from "./types";
 
 let initialState = {
@@ -33,6 +34,16 @@ const reducerSuperheroes = (state = initialState, action) => {
       return {
         ...state,
         data: [...state.data, action.payload],
+      };
+    }
+    case EDIT_DATA: {
+      return {
+        ...state,
+        data: state.data.map((data) => {
+          console.log(data._id);
+          console.log(action.payload._id);
+          return data._id == action.payload._id ? action.payload : data;
+        }),
       };
     }
 

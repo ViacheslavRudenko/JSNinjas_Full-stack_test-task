@@ -1,6 +1,6 @@
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import { Close, Create } from "@mui/icons-material";
-import { delleteSuperhero } from "../../api/superheroes";
+import { delleteSuperhero, updateSuperhero } from "../../api/superheroes";
 import { useDispatch } from "react-redux";
 import { deleteItem } from "../../store/superheroes/action";
 import { useState } from "react";
@@ -34,7 +34,14 @@ const SuperheroItem = ({ superhero, isCard = false }) => {
     setModalData({
       title: "Edit superhiro card",
       isOpen: true,
-      content: <SuperheroForm initialValue={superhero} />,
+      content: (
+        <SuperheroForm
+          initialValue={superhero}
+          onSubmit={updateSuperhero}
+          setModalData={setModalData}
+          typeAction={"upd"}
+        />
+      ),
     });
   };
 

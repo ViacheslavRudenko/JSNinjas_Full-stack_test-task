@@ -5,6 +5,7 @@ import {
   GET_DATA_ERROR,
   DELETE_DATA,
   GET_NEW_DATA,
+  EDIT_DATA,
 } from "./types";
 
 const setRequest = (request) => {
@@ -24,9 +25,9 @@ const getNewData = (data) => {
   addNewSuperhero(data);
   return { type: GET_NEW_DATA, payload: data };
 };
-// const editData = (data) => {
-//   return { type: editDataValue, payload: data };
-// };
+const editData = (data) => {
+  return { type: EDIT_DATA, payload: data };
+};
 
 const fetchSuperheroes = (getData) => {
   return async (dispatch) => {
@@ -39,4 +40,4 @@ const fetchSuperheroes = (getData) => {
   };
 };
 
-export { fetchSuperheroes, deleteItem, getNewData };
+export { fetchSuperheroes, deleteItem, getNewData, editData };

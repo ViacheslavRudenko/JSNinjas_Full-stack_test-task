@@ -19,3 +19,8 @@ export const addNewSuperhero = async (superhero) => {
   const data = await instance.post(`/add-superhero`, superhero);
   return data;
 };
+
+export const updateSuperhero = async (id, superhero) => {
+  const data = await instance.put(`/superheroes/${id}`, superhero);
+  return data;
+};
