@@ -36,7 +36,7 @@ export const addNewSuperhero = (req, res) => {
   post
     .save()
     .then((result) => {
-      res.redirect("/superheroes");
+      res.json(result);
     })
     .catch((error) => {
       console.log(error);
@@ -66,7 +66,8 @@ export const updateSuperhero = (req, res) => {
 
   Superheroes.findByIdAndUpdate(req.params.id, req.body)
     .then((result) => {
-      res.redirect(`/superheroes/${req.params.id}`);
+      console.log(result);
+      res.status(200).json(result);
     })
     .catch((error) => {
       console.log(error);
