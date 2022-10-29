@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { getSuperhero } from "../api/superheroes";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSuperheroes } from "../store/superheroes/action";
-import SuperheroItem from "../Components/List/ListItem";
+import SuperheroItem from "../Components/SuperheroList/ListItem";
 import { Box, Typography } from "@mui/material";
 import Error from "../Components/Error/Error";
 

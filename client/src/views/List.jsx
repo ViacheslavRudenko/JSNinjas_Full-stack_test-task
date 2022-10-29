@@ -1,9 +1,8 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import SuperheroItem from "../Components/List/ListItem";
+import SuperheroItem from "../Components/SuperheroList/ListItem";
 import { fetchSuperheroes } from "../store/superheroes/action";
-import { Link } from "react-router-dom";
 import { getSuperheroes } from "../api/superheroes";
 import Error from "../Components/Error/Error";
 
@@ -24,12 +23,7 @@ const SuperheroesList = () => {
     >
       {data.map((superhero) => (
         <Grid key={superhero._id} component="ol" item xs={2} sm={4} md={4}>
-          <Link
-            to={`/superhero/${superhero._id}`}
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <SuperheroItem superhero={superhero} />
-          </Link>
+          <SuperheroItem superhero={superhero} />
         </Grid>
       ))}
     </Grid>

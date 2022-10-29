@@ -1,10 +1,18 @@
 import { Box, Button, Typography } from "@mui/material";
 import { Close, Create } from "@mui/icons-material";
 import { delleteSuperhero } from "../../api/superheroes";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { deleteItem } from "../../store/superheroes/action";
+import { useState } from "react";
+import BasicModal from "../Modal/Modal";
+import { Link } from "react-router-dom";
+import SuperheroForm from "../Form/SuperheroForm/SuperheroForm";
 
 const SuperheroItem = ({ superhero, isCard = false }) => {
+  const [modalData, setModalData] = useState({
+    isOpen: false,
+  });
+
   const dispatch = useDispatch();
   const textStyle = {
     p: 0.5,
@@ -15,25 +23,36 @@ const SuperheroItem = ({ superhero, isCard = false }) => {
     },
   };
 
+  const swetDeleteItem = (e) => {
+    e.preventDefault();
+    delleteSuperhero(superhero._id);
+    dispatch(deleteItem(superhero._id));
+  };
+  const setEditItem = (e) => {
+    e.preventDefault();
+    setModalData({
+      title: "Edit superhiro card",
+      isOpen: true,
+      content: <SuperheroForm />,
+    });
+  };
+
   const BoxActionWithCard = () => (
     <Box textAlign="end">
-      <Button
-        onClick={(e) => {
-          e.preventDefault();
-          delleteSuperhero(superhero._id);
-          dispatch(deleteItem(superhero._id));
-        }}
-      >
+      <Button onClick={swetDeleteItem}>
         <Close />
       </Button>
-      <Button>
+      <Button onClick={setEditItem}>
         <Create />
       </Button>
     </Box>
   );
 
   const CardContent = () => (
-    <>
+    <Link
+      to={`/superhero/${superhero._id}`}
+      style={{ textDecoration: "none", color: "black" }}
+    >
       <Box
         component="img"
         maxWidth={160}
@@ -63,7 +82,7 @@ const SuperheroItem = ({ superhero, isCard = false }) => {
           {superhero.origin_description}
         </Typography>
       </Box>
-    </>
+    </Link>
   );
 
   return (
@@ -74,6 +93,7 @@ const SuperheroItem = ({ superhero, isCard = false }) => {
     >
       {!isCard && <BoxActionWithCard />}
       <CardContent />
+      <BasicModal modalData={modalData} setModalData={setModalData} />
     </Box>
   );
 };
