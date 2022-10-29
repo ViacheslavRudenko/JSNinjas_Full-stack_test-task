@@ -30,18 +30,13 @@ const SuperheroesList = () => {
   };
 
   const GridList = () => (
-    <Grid
-      container
-      columns={{ xs: 4, sm: 8, md: 13 }}
-      component="ul"
-      sx={{ gridGap: 15 }}
-    >
+    <Stack container component="ul">
       {data.map((superhero) => (
-        <Grid key={superhero._id} component="ol" item xs={2} sm={4} md={4}>
+        <Stack key={superhero._id} component="ol">
           <SuperheroItem superhero={superhero} />
-        </Grid>
+        </Stack>
       ))}
-    </Grid>
+    </Stack>
   );
 
   const NewHero = () => (

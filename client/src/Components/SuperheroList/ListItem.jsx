@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import { Close, Create } from "@mui/icons-material";
 import { delleteSuperhero } from "../../api/superheroes";
 import { useDispatch } from "react-redux";
@@ -38,31 +38,40 @@ const SuperheroItem = ({ superhero, isCard = false }) => {
   };
 
   const BoxActionWithCard = () => (
-    <Box textAlign="end">
-      <Button onClick={swetDeleteItem}>
-        <Close />
-      </Button>
+    <Grid item xs>
+      {!isCard && (
+        <Button onClick={swetDeleteItem}>
+          <Close />
+        </Button>
+      )}
       <Button onClick={setEditItem}>
         <Create />
       </Button>
-    </Box>
+    </Grid>
+  );
+
+  const BoxImg = () => (
+    <Grid item xs={3}>
+      <Link to={`/superhero/${superhero._id}`}>
+        <Box
+          component="img"
+          maxWidth={160}
+          alt={`${superhero.nickname} photo`}
+          src={superhero.images}
+          display="block"
+          m="0 auto"
+        ></Box>
+      </Link>
+    </Grid>
   );
 
   const CardContent = () => (
-    <Link
-      to={`/superhero/${superhero._id}`}
-      style={{ textDecoration: "none", color: "black" }}
-    >
-      <Box
-        component="img"
-        maxWidth={160}
-        alt={`${superhero.nickname} photo`}
-        src={superhero.images}
-        m="0 auto"
-        display="block"
-      ></Box>
-      <Box>
-        <Box component="h6" fontSize={18} textAlign="center">
+    <Grid item xs={8}>
+      <Link
+        to={`/superhero/${superhero._id}`}
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <Box component="h6" fontSize={18} textAlign="center" m={1}>
           {superhero.nickname}
         </Box>
         <Typography sx={textStyle}>
@@ -81,20 +90,17 @@ const SuperheroItem = ({ superhero, isCard = false }) => {
           <Typography component="span">Description: </Typography>
           {superhero.origin_description}
         </Typography>
-      </Box>
-    </Link>
+      </Link>
+    </Grid>
   );
 
   return (
-    <Box
-      display={isCard && "flex"}
-      flexDirection={isCard && "row"}
-      pt={isCard && 10}
-    >
-      {!isCard && <BoxActionWithCard />}
+    <Grid container spacing={3} borderBottom="1px solid black" pb={3} pt={3}>
+      <BoxImg />
       <CardContent />
+      <BoxActionWithCard />
       <BasicModal modalData={modalData} setModalData={setModalData} />
-    </Box>
+    </Grid>
   );
 };
 

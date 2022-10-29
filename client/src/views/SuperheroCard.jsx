@@ -17,7 +17,7 @@ const SuperheroCard = () => {
 
   useEffect(() => {});
   return (
-    <Box maxWidth={800} m="0 auto">
+    <Box maxWidth={1200} m="0 auto">
       {!error ? (
         isLoaded && <SuperheroItem superhero={data[0]} isCard={true} />
       ) : (
