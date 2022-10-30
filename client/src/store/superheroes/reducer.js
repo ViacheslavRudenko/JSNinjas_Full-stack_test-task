@@ -9,7 +9,7 @@ import {
 
 let initialState = {
   isLoaded: false,
-  error: null,
+  error: {},
   data: [],
   quantity: null,
 };
