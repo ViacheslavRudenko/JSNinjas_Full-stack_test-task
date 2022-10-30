@@ -1,0 +1,4 @@
+To start sever and web app:
+
+- Front: npm start
+- Back: npm run server
