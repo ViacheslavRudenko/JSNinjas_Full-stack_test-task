@@ -50,22 +50,24 @@ const SuperheroesList = () => {
     </Stack>
   );
 
-  return isLoaded ? (
+  return (
     <Box p={2} maxWidth={1200} m="0 auto">
-      <NewHero />
-      <GridList />
-      <BasicModal modalData={modalData} setModalData={setModalData} />
-      <Stack
-        sx={{
-          alignItems: "center",
-          p: 5,
-        }}
-      >
-        <Paginations />
-      </Stack>
+      {isLoaded && (
+        <>
+          <NewHero />
+          <GridList />
+          <BasicModal modalData={modalData} setModalData={setModalData} />
+          <Stack
+            sx={{
+              alignItems: "center",
+              p: 5,
+            }}
+          >
+            <Paginations />
+          </Stack>
+        </>
+      )}
     </Box>
-  ) : (
-    <Error err={error?.message} />
   );
 };
 
