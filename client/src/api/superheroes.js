@@ -1,12 +1,12 @@
 import instance from "./axios";
 
-export const getSuperheroes = async () => {
-  const data = await instance.get(`/superheroes`);
+export const getSuperheroes = async (filter = "") => {
+  const data = await instance.get(`${filter}`);
   return data;
 };
 
 export const getSuperhero = async (id) => {
-  const data = await instance.get(`/superheroes/${id}`);
+  const data = await instance.get(`/superheroes/superhero${id}`);
   return data;
 };
 

@@ -2,7 +2,10 @@ import { Superheroes } from "../models/superhero.js";
 import { validationResult } from "express-validator";
 
 export const getSuperheroes = (req, res) => {
-  Superheroes.find()
+  const { page = 1, limit = 10 } = req.query;
+  const dataPromis = Superheroes.find();
+  dataPromis.limit(limit * 1).skip((page - 1) * limit);
+  dataPromis
     .then((data) => {
       const dataArr = data.map((data) => {
         return { _id: data._id, nickname: data.nickname, images: data.images };

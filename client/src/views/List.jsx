@@ -7,17 +7,21 @@ import { addNewSuperhero, getSuperheroes } from "../api/superheroes";
 import Error from "../Components/Error/Error";
 import BasicModal from "../Components/Modal/Modal";
 import SuperheroForm from "../Components/Form/SuperheroForm/SuperheroForm";
+import { useLocation } from "react-router-dom";
 
 const SuperheroesList = () => {
   const { data, isLoaded, error } = useSelector((state) => state.superheroes);
   const [modalData, setModalData] = useState({
     isOpen: false,
   });
+  const location = useLocation();
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchSuperheroes(getSuperheroes()));
-  }, []);
+    dispatch(
+      fetchSuperheroes(getSuperheroes(location.pathname + location.search))
+    );
+  }, [location]);
 
   const addNewHero = () => {
     setModalData({

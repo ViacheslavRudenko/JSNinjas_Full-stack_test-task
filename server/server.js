@@ -22,7 +22,7 @@ app.use(cors());
 
 app.get("/", mainPage);
 app.get("/superheroes", getSuperheroes);
-app.get("/superheroes/:id", getSuperhero);
+app.get("/superheroes/superhero/:id", getSuperhero);
 app.post(
   "/add-superhero",
   superheroValidation,

@@ -8,7 +8,7 @@ import BasicModal from "../Modal/Modal";
 import { Link } from "react-router-dom";
 import SuperheroForm from "../Form/SuperheroForm/SuperheroForm";
 
-const SuperheroItem = ({ superhero, isCard = false }) => {
+const SuperheroItem = ({ superhero }) => {
   const [modalData, setModalData] = useState({
     isOpen: false,
   });
@@ -47,7 +47,7 @@ const SuperheroItem = ({ superhero, isCard = false }) => {
 
   const BoxActionWithCard = () => (
     <Grid item xs={1}>
-      {!isCard ? (
+      {!superhero.real_name ? (
         <Button onClick={swetDeleteItem}>
           <Close />
         </Button>
@@ -61,56 +61,54 @@ const SuperheroItem = ({ superhero, isCard = false }) => {
 
   const BoxImg = () => (
     <Grid item xs={3}>
-      <Link to={`/superhero/${superhero._id}`} style={linkStyle}>
-        {superhero.images ? (
-          <Box
-            component="img"
-            maxWidth={160}
-            alt={`${superhero.nickname} photo`}
-            src={superhero.images}
-            display="block"
-            m="0 auto"
-          ></Box>
-        ) : (
-          <Stack align="center" height="100%" justifyContent="center">
-            no image
-          </Stack>
-        )}
-      </Link>
+      {superhero.images ? (
+        <Box
+          component="img"
+          maxWidth={160}
+          alt={`${superhero.nickname} photo`}
+          src={superhero.images}
+          display="block"
+          m="0 auto"
+        ></Box>
+      ) : (
+        <Stack align="center" height="100%" justifyContent="center">
+          no image
+        </Stack>
+      )}
     </Grid>
   );
 
   const CardContent = () => (
     <Grid item xs>
-      <Link to={`/superhero/${superhero._id}`} style={linkStyle}>
-        <Box component="h6" fontSize={18} textAlign="center" m={1}>
-          {superhero.nickname}
+      <Box component="h6" fontSize={18} textAlign="center" m={1}>
+        {superhero.nickname}
+      </Box>
+      {superhero.real_name ? (
+        <Box>
+          <Typography sx={textStyle}>
+            <Typography component="span">Real name: </Typography>
+            {superhero.real_name}
+          </Typography>
+          <Typography sx={textStyle}>
+            <Typography component="span">Super powers: </Typography>
+            {superhero.superpowers}
+          </Typography>
+          <Typography sx={textStyle}>
+            <Typography component="span">Catch phrase: </Typography>
+            {superhero.catch_phrase}
+          </Typography>
+          <Typography sx={textStyle}>
+            <Typography component="span">Description: </Typography>
+            {superhero.origin_description}
+          </Typography>
         </Box>
-        {isCard ? (
-          <Box>
-            <Typography sx={textStyle}>
-              <Typography component="span">Real name: </Typography>
-              {superhero.real_name}
-            </Typography>
-            <Typography sx={textStyle}>
-              <Typography component="span">Super powers: </Typography>
-              {superhero.superpowers}
-            </Typography>
-            <Typography sx={textStyle}>
-              <Typography component="span">Catch phrase: </Typography>
-              {superhero.catch_phrase}
-            </Typography>
-            <Typography sx={textStyle}>
-              <Typography component="span">Description: </Typography>
-              {superhero.origin_description}
-            </Typography>
-          </Box>
-        ) : (
+      ) : (
+        <Link to={`/superheroes/superhero/${superhero._id}`} style={linkStyle}>
           <Stack pt={10}>
             <Button>Show more info</Button>
           </Stack>
-        )}
-      </Link>
+        </Link>
+      )}
     </Grid>
   );
 
