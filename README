@@ -1,4 +1,4 @@
 To start sever and web app:
 
-- Front: npm start
-- Back: npm run server
+- Front (client): npm start
+- Back (server): npm run server
