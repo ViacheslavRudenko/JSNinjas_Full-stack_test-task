@@ -2,7 +2,7 @@ import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import { Close, Create } from "@mui/icons-material";
 import { delleteSuperhero, updateSuperhero } from "../../api/superheroes";
 import { useDispatch } from "react-redux";
-import { deleteItem } from "../../store/superheroes/action";
+import { deleteItem, setError } from "../../store/superheroes/action";
 import { useState } from "react";
 import BasicModal from "../Modal/Modal";
 import { Link } from "react-router-dom";
