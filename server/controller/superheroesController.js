@@ -20,7 +20,6 @@ export const getSuperheroes = (req, res) => {
       });
     })
     .catch((error) => {
-      console.log(error);
       res
         .status(500)
         .json({ success: false, message: "Database connection error" });
@@ -33,7 +32,6 @@ export const getSuperhero = (req, res) => {
       res.send({ data: [data] });
     })
     .catch((error) => {
-      console.log(error);
       res
         .status(500)
         .json({ success: false, message: "Database connection error" });
@@ -52,12 +50,14 @@ export const addNewSuperhero = (req, res) => {
       res.json(result);
     })
     .catch((error) => {
-      console.log(error);
-      err
+      !err.array()
         ? res.status(400).json(err.array())
-        : res
-            .status(500)
-            .json({ success: false, message: "Database connection error" });
+        : res.status(500).json(
+            error.code === 11000 && {
+              success: false,
+              message: "Nick name is not unique",
+            }
+          );
     });
 };
 
@@ -67,7 +67,6 @@ export const deleteSuperhero = (req, res) => {
       res.status(200).json({ success: true });
     })
     .catch((error) => {
-      console.log(error);
       res
         .status(500)
         .json({ success: false, message: "Database connection error" });
@@ -79,15 +78,21 @@ export const updateSuperhero = (req, res) => {
 
   Superheroes.findByIdAndUpdate(req.params.id, req.body)
     .then((result) => {
-      console.log(result);
       res.status(200).json(result);
     })
     .catch((error) => {
-      console.log(error);
-      err
+      !err.array()
         ? res.status(400).json(err.array())
-        : res
-            .status(500)
-            .json({ success: false, message: "Database connection error" });
+        : res.status(400).send(
+            +error.code === 11000
+              ? {
+                  success: false,
+                  message: "Nick name is not unique",
+                }
+              : {
+                  success: false,
+                  message: "Server error",
+                }
+          );
     });
 };
