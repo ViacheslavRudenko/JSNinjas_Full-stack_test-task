@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const db =
   "mongodb+srv://user:wDAM3gi33hGWsrG7@cluster0.8nfslkf.mongodb.net/JSNinjas_Full-stack_test-task?retryWrites=true&w=majority";
 

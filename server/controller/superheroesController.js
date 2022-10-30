@@ -2,15 +2,22 @@ import { Superheroes } from "../models/superhero.js";
 import { validationResult } from "express-validator";
 
 export const getSuperheroes = (req, res) => {
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit } = req.query;
   const dataPromis = Superheroes.find();
+
   dataPromis.limit(limit * 1).skip((page - 1) * limit);
   dataPromis
     .then((data) => {
-      const dataArr = data.map((data) => {
-        return { _id: data._id, nickname: data.nickname, images: data.images };
+      const dataArr = data.map((dataItem) => {
+        return {
+          _id: dataItem._id,
+          nickname: dataItem.nickname,
+          images: dataItem.images,
+        };
       });
-      res.send(dataArr);
+      Superheroes.count({}, function (err, count) {
+        res.send({ data: dataArr, quantity: count });
+      });
     })
     .catch((error) => {
       console.log(error);
@@ -23,7 +30,7 @@ export const getSuperheroes = (req, res) => {
 export const getSuperhero = (req, res) => {
   Superheroes.findById(req.params.id)
     .then((data) => {
-      res.send([data]);
+      res.send({ data: [data] });
     })
     .catch((error) => {
       console.log(error);
