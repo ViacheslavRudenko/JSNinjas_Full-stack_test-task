@@ -26,8 +26,13 @@ const SuperheroItem = ({ superhero }) => {
 
   const swetDeleteItem = (e) => {
     e.preventDefault();
-    delleteSuperhero(superhero._id);
-    dispatch(deleteItem(superhero._id));
+    delleteSuperhero(superhero._id)
+      .then(() => {
+        dispatch(deleteItem(superhero._id));
+      })
+      .catch((err) => {
+        dispatch(setError(JSON.parse(err.request.response)));
+      });
   };
   const setEditItem = (e) => {
     e.preventDefault();
