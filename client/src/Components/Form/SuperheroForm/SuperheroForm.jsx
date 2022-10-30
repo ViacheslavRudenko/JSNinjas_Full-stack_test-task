@@ -28,7 +28,7 @@ const SuperheroForm = ({
 
   const dispatch = useDispatch();
   const setValidation = (values) => {
-    onSubmit(values)
+    onSubmit(values, values._id)
       .then((res) => {
         console.log(res);
         typeAction === "add"

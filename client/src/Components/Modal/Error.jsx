@@ -35,7 +35,7 @@ const ErrorModal = () => {
           }
           sx={{ mb: 2 }}
         >
-          {error?.message}
+          {error?.message || error[0]?.msg}
         </Alert>
       </Modal>
     </Box>

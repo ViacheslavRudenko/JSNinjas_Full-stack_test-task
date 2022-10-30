@@ -21,5 +21,5 @@ export const superheroValidation = [
   body("catch_phrase", "Catch phrase must contain: min 15 symbols").isLength({
     min: 15,
   }),
-  body("images", "Images must be in url format").optional().isURL(),
+  body("images", "Images must be in url format").optional(),
 ];
