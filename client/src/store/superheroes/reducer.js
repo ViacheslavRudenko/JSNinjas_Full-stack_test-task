@@ -11,6 +11,7 @@ let initialState = {
   isLoaded: false,
   error: null,
   data: [],
+  quantity: null,
 };
 
 const reducerSuperheroes = (state = initialState, action) => {
@@ -19,7 +20,11 @@ const reducerSuperheroes = (state = initialState, action) => {
       return { ...state, isLoaded: action.payload };
     }
     case GET_DATA_SUCCESS: {
-      return { ...state, data: action.payload };
+      return {
+        ...state,
+        data: action.payload.data,
+        quantity: action.payload.quantity,
+      };
     }
     case GET_DATA_ERROR: {
       return { ...state, error: action.payload };

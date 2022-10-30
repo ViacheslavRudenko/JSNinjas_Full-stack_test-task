@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SuperheroItem from "../Components/SuperheroList/ListItem";
@@ -8,6 +8,7 @@ import Error from "../Components/Error/Error";
 import BasicModal from "../Components/Modal/Modal";
 import SuperheroForm from "../Components/Form/SuperheroForm/SuperheroForm";
 import { useLocation } from "react-router-dom";
+import Paginations from "../Components/Pagination/Paginations";
 
 const SuperheroesList = () => {
   const { data, isLoaded, error } = useSelector((state) => state.superheroes);
@@ -54,6 +55,14 @@ const SuperheroesList = () => {
       <NewHero />
       <GridList />
       <BasicModal modalData={modalData} setModalData={setModalData} />
+      <Stack
+        sx={{
+          alignItems: "center",
+          p: 5,
+        }}
+      >
+        <Paginations />
+      </Stack>
     </Box>
   ) : (
     <Error err={error?.message} />
