@@ -4,14 +4,15 @@ import { useSelector, useDispatch } from "react-redux";
 import SuperheroItem from "../Components/SuperheroList/ListItem";
 import { fetchSuperheroes } from "../store/superheroes/action";
 import { addNewSuperhero, getSuperheroes } from "../api/superheroes";
-import Error from "../Components/Error/Error";
 import BasicModal from "../Components/Modal/Modal";
 import SuperheroForm from "../Components/Form/SuperheroForm/SuperheroForm";
 import { useLocation } from "react-router-dom";
 import Paginations from "../Components/Pagination/Paginations";
 
 const SuperheroesList = () => {
-  const { data, isLoaded, error } = useSelector((state) => state.superheroes);
+  const { data, isLoaded, error, quantity } = useSelector(
+    (state) => state.superheroes
+  );
   const [modalData, setModalData] = useState({
     isOpen: false,
   });
@@ -63,7 +64,7 @@ const SuperheroesList = () => {
               p: 5,
             }}
           >
-            <Paginations />
+            {quantity && <Paginations />}
           </Stack>
         </>
       )}

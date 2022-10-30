@@ -40,4 +40,4 @@ const fetchSuperheroes = (getData) => {
   };
 };
 
-export { fetchSuperheroes, deleteItem, getNewData, editData };
+export { fetchSuperheroes, deleteItem, getNewData, editData, setError };

@@ -4,7 +4,11 @@ import { SuperheroInputNames, superheroSchema } from "./data";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { editData, getNewData } from "../../../store/superheroes/action";
+import {
+  editData,
+  getNewData,
+  setError,
+} from "../../../store/superheroes/action";
 
 const SuperheroForm = ({
   initialValue,
@@ -24,14 +28,17 @@ const SuperheroForm = ({
 
   const dispatch = useDispatch();
   const setValidation = (values) => {
-    typeAction === "add"
-      ? onSubmit(values).then((res) => {
-          dispatch(getNewData(res.data));
-        })
-      : onSubmit(values._id, values).then((res) => {
-          dispatch(editData(values));
-        });
-    setModalData({ isOpen: false });
+    onSubmit(values)
+      .then((res) => {
+        console.log(res);
+        typeAction === "add"
+          ? dispatch(getNewData(res.data))
+          : dispatch(editData(values));
+        setModalData({ isOpen: false });
+      })
+      .catch((err) => {
+        dispatch(setError(JSON.parse(err.request.response)));
+      });
   };
 
   useEffect(() => reset(initialValue), [initialValue]);

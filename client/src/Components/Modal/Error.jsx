@@ -1,4 +1,4 @@
-import { Alert, Box, Collapse, IconButton } from "@mui/material";
+import { Alert, Box, Collapse, IconButton, Modal } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -14,9 +14,10 @@ const ErrorModal = () => {
 
   return (
     <Box>
-      <Collapse
-        in={open}
-        sx={{ position: "sticky", bottom: 30, left: "70%", width: 300 }}
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        sx={{ poition: "static", top: 30, left: "70%", width: 300 }}
       >
         <Alert
           severity="error"
@@ -36,7 +37,7 @@ const ErrorModal = () => {
         >
           {error?.message}
         </Alert>
-      </Collapse>
+      </Modal>
     </Box>
   );
 };

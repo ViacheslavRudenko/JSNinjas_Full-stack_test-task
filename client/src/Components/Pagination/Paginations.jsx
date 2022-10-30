@@ -18,7 +18,7 @@ const Paginations = () => {
         setPage(v);
       }}
       page={+search.getAll("page")}
-      count={Math.ceil(quantity / +search.getAll("limit"))}
+      count={quantity ? Math.ceil(quantity / +search.getAll("limit")) : null}
     />
   );
 };
