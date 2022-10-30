@@ -30,7 +30,6 @@ const SuperheroForm = ({
   const setValidation = (values) => {
     onSubmit(values, values._id)
       .then((res) => {
-        console.log(res);
         typeAction === "add"
           ? dispatch(getNewData(res.data))
           : dispatch(editData(values));
